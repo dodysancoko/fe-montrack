@@ -1,30 +1,27 @@
 const express = require("express");
-const UserController = require("./controller");
+const {
+  getAllUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+} = require("./controller");
 
 const UserRoute = express.Router();
 
-UserRoute.get(
-  "/",
-  (req, res, next) => {
-    console.log("testing");
-    next();
-  },
-  UserController.getAll
-);
+// Mendapatkan semua user
+UserRoute.get("/", getAllUsers);
 
-UserRoute.post("/", (req, res) => {
-  console.log(req.query);
-  return res.status(200).send("OK2");
-});
+// Mendapatkan user berdasarkan ID
+UserRoute.get("/:id", getUserById);
 
-UserRoute.delete("/", (req, res) => {
-  console.log(req.query);
-  return res.status(200).send("OK3");
-});
+// Menambahkan user baru
+UserRoute.post("/", createUser);
 
-UserRoute.patch("/", (req, res) => {
-  console.log(req.query);
-  return res.status(200).send("OK4");
-});
+// Mengupdate user berdasarkan ID
+UserRoute.put("/:id", updateUser);
+
+// Menghapus user berdasarkan ID
+UserRoute.delete("/:id", deleteUser);
 
 module.exports = UserRoute;
